@@ -1,5 +1,6 @@
 package com.om1cael.absency.api.controller;
 
+import com.om1cael.absency.api.dto.JwtTokenDTO;
 import com.om1cael.absency.api.exception.EntityFoundException;
 import com.om1cael.absency.api.model.User;
 import com.om1cael.absency.api.security.JwtManager;
@@ -25,7 +26,7 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/register")
-    private ResponseEntity<User> register(@RequestBody @Valid User user) throws EntityFoundException {
+    private ResponseEntity<JwtTokenDTO> register(@RequestBody @Valid User user) throws EntityFoundException {
         return new ResponseEntity<>(this.userService.register(user), HttpStatus.CREATED);
     }
 
