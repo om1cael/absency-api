@@ -51,4 +51,8 @@ public class UserService {
         String token = this.jwtManager.createToken(userLoginDTO.username());
         return new JwtTokenDTO(token);
     }
+
+    public void save(User user) {
+        this.userRepository.save(user);
+    }
 }
