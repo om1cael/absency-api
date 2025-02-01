@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @NotNull
     @Min(0)
     @Max(100)
-    private float maximumAbsenceInPercentage;
+    private int maximumAbsenceInPercentage;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int absentDays;
