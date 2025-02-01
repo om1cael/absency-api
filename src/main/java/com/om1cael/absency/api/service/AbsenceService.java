@@ -1,5 +1,6 @@
 package com.om1cael.absency.api.service;
 
+import com.om1cael.absency.api.dto.AbsenceResponseDTO;
 import com.om1cael.absency.api.exception.IllegalAbsenceStateException;
 import com.om1cael.absency.api.model.User;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,10 +15,7 @@ public class AbsenceService {
     private UserService userService;
 
     public int increaseAbsence() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user == null) {
-            throw new EntityNotFoundException("User not found");
-        }
+        User user = this.getUser();
 
         user.setAbsentDays(user.getAbsentDays() + 1);
         this.userService.save(user);
@@ -25,10 +23,7 @@ public class AbsenceService {
     }
 
     public int decreaseAbsence() throws IllegalAbsenceStateException {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user == null) {
-            throw new EntityNotFoundException("User not found");
-        }
+        User user = this.getUser();
 
         if(user.getAbsentDays() <= 0) {
             throw new IllegalAbsenceStateException("Absences cannot be set to negative");
@@ -37,5 +32,19 @@ public class AbsenceService {
         user.setAbsentDays(user.getAbsentDays() - 1);
         this.userService.save(user);
         return user.getAbsentDays();
+    }
+
+    public AbsenceResponseDTO getUserAbsenceDetails() {
+        User user = this.getUser();
+
+        return new AbsenceResponseDTO(user.getSchoolDays(), user.getMaximumAbsenceInPercentage(), user.getAbsentDays());
+    }
+
+    private User getUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(user == null) {
+            throw new EntityNotFoundException("User not found");
+        }
+        return user;
     }
 }
