@@ -1,6 +1,6 @@
 # 🌟 Absency API
 
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.5-green?style=for-the-badge)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-green?style=for-the-badge)
 ![Java](https://img.shields.io/badge/Java-21-blue?style=for-the-badge)
 ![JWT](https://img.shields.io/badge/JWT-Authentication-orange?style=for-the-badge)
 ![Security](https://img.shields.io/badge/Security-Enabled-brightgreen?style=for-the-badge)
